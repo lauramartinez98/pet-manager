@@ -26,11 +26,13 @@ public class VetAppointmentController {
     private final VetAppointmentService vetAppointmentService;
     private final CurrentUserService currentUserService;
 
+    /** GET /pets/{petId}/vet-appointments: citas de la mascota por fecha ascendente. */
     @GetMapping
     public ResponseEntity<List<VetAppointmentResponseDTO>> findAll(@PathVariable UUID petId) {
         return ResponseEntity.ok(vetAppointmentService.findAllByPet(currentUserService.getCurrentUserId(), petId));
     }
 
+    /** POST /pets/{petId}/vet-appointments: registra una cita (puede ser futura) y responde 201. */
     @PostMapping
     public ResponseEntity<VetAppointmentResponseDTO> create(@PathVariable UUID petId,
                                                             @Valid @RequestBody VetAppointmentRequestDTO request) {

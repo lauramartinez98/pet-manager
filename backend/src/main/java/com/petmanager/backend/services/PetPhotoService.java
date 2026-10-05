@@ -27,6 +27,7 @@ public class PetPhotoService {
     private final PetService petService;
     private final PhotoStorageService storage;
 
+    /** Valida la imagen, la sube a Supabase Storage, guarda su URL en la mascota y borra la foto anterior. Devuelve la mascota actualizada. */
     public PetResponseDTO replacePhoto(UUID ownerId, UUID petId, MultipartFile file) {
         // 404 si la mascota no existe o es de otro usuario, antes de subir nada
         petService.findById(ownerId, petId);
@@ -58,6 +59,7 @@ public class PetPhotoService {
         return update.pet();
     }
 
+    /** Lee el archivo subido: 400 si está vacío o no se puede leer, 413 si supera los 5 MB. */
     private static byte[] readAndValidate(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No se ha enviado ninguna imagen");
@@ -89,6 +91,7 @@ public class PetPhotoService {
             this.extension = extension;
         }
 
+        /** Detecta JPEG, PNG o WebP por sus primeros bytes; 415 si no es ninguno. */
         static ImageType detect(byte[] b) {
             if (b.length >= 3 && (b[0] & 0xFF) == 0xFF && (b[1] & 0xFF) == 0xD8 && (b[2] & 0xFF) == 0xFF) {
                 return JPEG;

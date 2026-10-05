@@ -26,11 +26,13 @@ public class ExpenseController {
     private final ExpenseService expenseService;
     private final CurrentUserService currentUserService;
 
+    /** GET /pets/{petId}/expenses: gastos de la mascota, del más reciente al más antiguo. */
     @GetMapping
     public ResponseEntity<List<ExpenseResponseDTO>> findAll(@PathVariable UUID petId) {
         return ResponseEntity.ok(expenseService.findAllByPet(currentUserService.getCurrentUserId(), petId));
     }
 
+    /** POST /pets/{petId}/expenses: registra un gasto y responde 201 con el gasto creado. */
     @PostMapping
     public ResponseEntity<ExpenseResponseDTO> create(@PathVariable UUID petId,
                                                      @Valid @RequestBody ExpenseRequestDTO request) {

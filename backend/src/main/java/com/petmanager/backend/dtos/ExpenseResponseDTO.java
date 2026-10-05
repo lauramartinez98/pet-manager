@@ -15,6 +15,7 @@ public record ExpenseResponseDTO(
         LocalDate expenseDate
 ) {
 
+    /** Construye la respuesta de la API a partir de la entidad. */
     public static ExpenseResponseDTO from(Expense expense) {
         return new ExpenseResponseDTO(
                 expense.getId(),

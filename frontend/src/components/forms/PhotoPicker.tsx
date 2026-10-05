@@ -1,6 +1,7 @@
 import { useEffect, useMemo, type InputHTMLAttributes } from 'react'
 import { PHOTO_ACCEPT } from '../../utils/validation'
 import { FieldError } from './FormControls'
+import { liftSm } from '../../constants/styles'
 
 interface PhotoPickerProps {
   /** Archivo elegido (para la vista previa) */
@@ -10,7 +11,7 @@ interface PhotoPickerProps {
   inputProps: InputHTMLAttributes<HTMLInputElement>
 }
 
-// Vista previa circular (ui-guidelines: fotos de mascotas rounded-full) + botón para elegir la imagen
+/** Vista previa circular (ui-guidelines: fotos de mascotas rounded-full) + botón para elegir la imagen */
 export default function PhotoPicker({ file, error, inputProps }: PhotoPickerProps) {
   const preview = useMemo(() => (file ? URL.createObjectURL(file) : null), [file])
 
@@ -30,11 +31,11 @@ export default function PhotoPicker({ file, error, inputProps }: PhotoPickerProp
             <span aria-hidden="true">📷</span>
           )}
         </div>
-        <label className="cursor-pointer rounded-lg border border-brown/30 bg-white/70 px-3 py-2 text-sm font-medium text-brown transition-colors hover:bg-white has-focus-visible:ring-2 has-focus-visible:ring-soft-blue">
+        <label className={`cursor-pointer rounded-xl border border-brown/30 bg-white/70 px-3 py-2 text-sm font-medium text-brown ${liftSm} hover:bg-white has-focus-visible:ring-2 has-focus-visible:ring-soft-blue`}>
           {preview ? 'Cambiar foto' : 'Elegir foto'}
           <input type="file" accept={PHOTO_ACCEPT} className="sr-only" {...inputProps} />
         </label>
-        <span className="text-xs text-brown/60">JPG, PNG o WebP · máx. 5 MB</span>
+        <span className="text-xs text-brown/75">JPG, PNG o WebP · máx. 5 MB</span>
       </div>
       {error && <FieldError>{error}</FieldError>}
     </div>

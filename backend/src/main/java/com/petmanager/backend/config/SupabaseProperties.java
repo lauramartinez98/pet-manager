@@ -12,6 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "app.supabase")
 public record SupabaseProperties(String url, String serviceKey, String photosBucket) {
 
+    /** URL de Supabase sin la barra final, para concatenar rutas sin duplicarla. */
     public String baseUrl() {
         return url.endsWith("/") ? url.substring(0, url.length() - 1) : url;
     }

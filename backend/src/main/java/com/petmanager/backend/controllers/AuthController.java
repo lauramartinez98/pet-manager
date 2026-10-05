@@ -24,19 +24,19 @@ public class AuthController {
     private final AuthService authService;
     private final CurrentUserService currentUserService;
 
-    // Público: crea la cuenta y devuelve ya un token (el usuario queda logueado)
+    /** Público: crea la cuenta y devuelve ya un token (el usuario queda logueado) */
     @PostMapping("/register")
     public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody UserRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(request));
     }
 
-    // Público
+    /** Público */
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody LoginRequestDTO request) {
         return ResponseEntity.ok(authService.login(request));
     }
 
-    // Requiere token: el frontend lo usa para validar una sesión guardada
+    /** Requiere token: el frontend lo usa para validar una sesión guardada */
     @GetMapping("/me")
     public ResponseEntity<UserResponseDTO> me() {
         return ResponseEntity.ok(authService.me(currentUserService.getCurrentUserId()));

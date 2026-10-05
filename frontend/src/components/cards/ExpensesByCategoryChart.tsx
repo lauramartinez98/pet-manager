@@ -3,8 +3,8 @@ import { EXPENSE_CATEGORY_LABELS } from '../../constants/labels'
 import type { ExpenseCategory, ExpenseResponse } from '../../types/api-types'
 import { formatCurrency } from '../../utils/format'
 
-// Una sola serie de magnitudes -> un solo color (Brown de ui-guidelines, contraste > 3:1 sobre Butter Yellow)
-const BAR_COLOR = '#5c3d2e'
+/** Una sola serie de magnitudes -> un solo color (Brown de la paleta, mismo valor que --color-brown en index.css) */
+const BAR_COLOR = '#582f0e'
 const ROW_HEIGHT = 34
 
 interface CategoryTotal {
@@ -14,6 +14,7 @@ interface CategoryTotal {
   share: number
 }
 
+/** Suma los gastos por categoría y calcula el porcentaje de cada una, de mayor a menor. */
 function totalsByCategory(expenses: ExpenseResponse[]): CategoryTotal[] {
   const sums = new Map<ExpenseCategory, number>()
   for (const e of expenses) sums.set(e.category, (sums.get(e.category) ?? 0) + e.amount)
@@ -33,6 +34,7 @@ interface TooltipPayload {
   payload: CategoryTotal
 }
 
+/** Tooltip de la barra: categoría, importe y porcentaje del total. */
 function ChartTooltip({ active, payload }: { active?: boolean; payload?: TooltipPayload[] }) {
   if (!active || !payload?.length) return null
   const d = payload[0].payload
@@ -56,7 +58,7 @@ export default function ExpensesByCategoryChart({ expenses }: { expenses: Expens
 
   return (
     <figure className="mb-4">
-      <figcaption className="mb-1 text-xs font-semibold tracking-wide text-brown/60 uppercase">
+      <figcaption className="mb-1 text-xs font-semibold tracking-wide text-brown/75 uppercase">
         Por categoría
       </figcaption>
       <div style={{ height: data.length * ROW_HEIGHT + 8 }}>
@@ -71,7 +73,7 @@ export default function ExpensesByCategoryChart({ expenses }: { expenses: Expens
               tickLine={false}
               tick={{ fill: BAR_COLOR, fontSize: 12 }}
             />
-            <Tooltip content={<ChartTooltip />} cursor={{ fill: 'rgba(92, 61, 46, 0.06)' }} />
+            <Tooltip content={<ChartTooltip />} cursor={{ fill: 'rgba(88, 47, 14, 0.06)' }} />
             <Bar dataKey="total" radius={[0, 4, 4, 0]} maxBarSize={16} isAnimationActive={false}>
               {data.map((d) => (
                 <Cell key={d.category} fill={BAR_COLOR} />

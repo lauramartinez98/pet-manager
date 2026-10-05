@@ -10,4 +10,5 @@ export interface LayoutContext {
   reloadPets: () => void
 }
 
+/** Datos que Layout comparte con sus páginas hijas (p. ej. recargar las mascotas). */
 export const useLayoutContext = () => useOutletContext<LayoutContext>()

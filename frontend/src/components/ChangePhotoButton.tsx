@@ -11,11 +11,12 @@ interface ChangePhotoButtonProps {
   onUploaded: (pet: PetResponse) => void
 }
 
-// Foto grande de la cabecera: al pulsarla se elige una imagen nueva y se sube a Supabase Storage
+/** Foto grande de la cabecera: al pulsarla se elige una imagen nueva y se sube a Supabase Storage */
 export default function ChangePhotoButton({ pet, onUploaded }: ChangePhotoButtonProps) {
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  /** Valida la imagen elegida, la sube y avisa al padre con la mascota actualizada; muestra el error si falla. */
   async function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     e.target.value = '' // permite volver a elegir el mismo archivo tras un error
@@ -40,10 +41,10 @@ export default function ChangePhotoButton({ pet, onUploaded }: ChangePhotoButton
   return (
     <div className="flex shrink-0 flex-col items-center">
       <label
-        className="group relative cursor-pointer rounded-full has-focus-visible:ring-4 has-focus-visible:ring-soft-blue"
+        className="group relative cursor-pointer rounded-full transition-transform duration-300 motion-safe:hover:-translate-y-1 has-focus-visible:ring-4 has-focus-visible:ring-soft-blue"
         title="Cambiar foto"
       >
-        <PetAvatar key={pet.photoUrl} pet={pet} className="size-40 text-5xl ring-4 ring-white shadow-md" />
+        <PetAvatar key={pet.photoUrl} pet={pet} className="size-40 text-5xl ring-4 ring-white shadow-xl shadow-brown/10" />
         <span
           className={`absolute inset-0 flex flex-col items-center justify-center rounded-full bg-brown/55 text-sm font-semibold text-butter-yellow-light transition-opacity ${
             uploading ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 group-has-focus-visible:opacity-100'

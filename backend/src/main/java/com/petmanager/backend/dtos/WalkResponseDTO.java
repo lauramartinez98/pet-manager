@@ -16,6 +16,7 @@ public record WalkResponseDTO(
         OffsetDateTime walkDatetime
 ) {
 
+    /** Construye la respuesta de la API a partir de la entidad. */
     public static WalkResponseDTO from(Walk walk) {
         return new WalkResponseDTO(
                 walk.getId(),

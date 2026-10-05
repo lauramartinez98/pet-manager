@@ -12,6 +12,7 @@ interface WalksCardProps {
   petId: string
 }
 
+/** Tarjeta de paseos: resumen del día, historial y formulario para añadir. */
 export default function WalksCard({ petId }: WalksCardProps) {
   const [showForm, setShowForm] = useState(false)
   const { data: walks, loading, error, reload } = useApi(
@@ -22,6 +23,7 @@ export default function WalksCard({ petId }: WalksCardProps) {
   const totalKm = walks?.reduce((sum, w) => sum + (w.distanceKm ?? 0), 0) ?? 0
   const totalMinutes = walks?.reduce((sum, w) => sum + (w.durationMinutes ?? 0), 0) ?? 0
 
+  /** Guarda el paseo, cierra el formulario y recarga la lista. */
   async function handleCreate(data: WalkRequest) {
     await createPetWalk(petId, data)
     setShowForm(false)
@@ -59,7 +61,7 @@ export default function WalksCard({ petId }: WalksCardProps) {
                 >
                   <div>
                     <p className="font-semibold text-brown">{formatTime(walk.walkDatetime)}</p>
-                    <p className="text-brown/70">
+                    <p className="text-brown/75">
                       {walk.distanceKm ?? '–'} km · {walk.durationMinutes ?? '–'} min
                     </p>
                   </div>
@@ -77,21 +79,23 @@ export default function WalksCard({ petId }: WalksCardProps) {
   )
 }
 
+/** Cifra destacada con su etiqueta (resumen de paseos). */
 function Stat({ value, label }: { value: number | string; label: string }) {
   return (
-    <div className="rounded-xl bg-white/60 py-2">
-      <p className="text-xl font-bold text-brown">{value}</p>
-      <p className="text-xs text-brown/60">{label}</p>
+    <div className="rounded-2xl bg-white/60 py-3">
+      <p className="font-display text-2xl font-extrabold text-brown">{value}</p>
+      <p className="text-xs text-brown/75">{label}</p>
     </div>
   )
 }
 
+/** Etiqueta de pipí/caca: resaltada si ocurrió, tachada si no. */
 function Badge({ active, icon, label }: { active: boolean; icon: string; label: string }) {
   return (
     <span
       title={`${label}: ${active ? 'sí' : 'no'}`}
       className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-        active ? 'bg-soft-blue text-brown' : 'bg-white/60 text-brown/40 line-through'
+        active ? 'bg-soft-blue text-brown' : 'bg-white/60 text-brown/75 line-through'
       }`}
     >
       <span aria-hidden="true">{icon}</span> {label}

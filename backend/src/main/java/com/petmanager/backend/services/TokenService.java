@@ -21,7 +21,7 @@ public class TokenService {
     private final JwtEncoder jwtEncoder;
     private final JwtProperties properties;
 
-    // El "sub" del token es el id del usuario; CurrentUserService lo lee de ahí
+    /** El "sub" del token es el id del usuario; CurrentUserService lo lee de ahí */
     public AuthResponseDTO issue(User user) {
         Instant now = Instant.now();
         Instant expiresAt = now.plus(properties.expiration());

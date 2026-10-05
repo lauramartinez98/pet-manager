@@ -25,6 +25,7 @@ public class PetService {
     private final PetRepository petRepository;
     private final UserRepository userRepository;
 
+    /** Crea una mascota cuyo dueño es el usuario autenticado. */
     @Transactional
     public PetResponseDTO create(UUID ownerId, PetRequestDTO request) {
         Pet pet = Pet.builder()
@@ -41,12 +42,14 @@ public class PetService {
         return PetResponseDTO.from(petRepository.save(pet));
     }
 
+    /** Mascotas del usuario ordenadas por nombre. */
     public List<PetResponseDTO> findAllByOwner(UUID ownerId) {
         return petRepository.findByOwnerIdOrderByNameAsc(ownerId).stream()
                 .map(PetResponseDTO::from)
                 .toList();
     }
 
+    /** Detalle de una mascota del usuario; 404 si no existe o es de otro. */
     public PetResponseDTO findById(UUID ownerId, UUID petId) {
         return PetResponseDTO.from(getPetOrThrow(ownerId, petId));
     }

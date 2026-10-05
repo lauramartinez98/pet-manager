@@ -19,6 +19,7 @@ interface ExpenseFormProps {
   onCancel: () => void
 }
 
+/** Formulario de gasto validado con las reglas de ExpenseRequest del contrato. */
 export default function ExpenseForm({ onSubmit, onCancel }: ExpenseFormProps) {
   const {
     register,
@@ -60,17 +61,17 @@ export default function ExpenseForm({ onSubmit, onCancel }: ExpenseFormProps) {
             type="number"
             inputMode="decimal"
             step="0.01"
-            placeholder="24.90"
+            placeholder="p. ej. 24.90"
             autoFocus
             className={inputClass}
-            {...register('amount', numberRules({ required: true, min: 0, exclusiveMin: true, unit: '€' }))}
+            {...register('amount', numberRules({ required: true, min: 0, exclusiveMin: true, max: 99999999.99, decimals: 2, unit: '€' }))}
           />
         </Field>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <Field label="Descripción" error={errors.description?.message}>
           <input
-            placeholder="Pienso 12 kg"
+            placeholder="p. ej. Pienso 12 kg"
             className={inputClass}
             {...register('description', textRules({ maxLength: 2000 }))}
           />

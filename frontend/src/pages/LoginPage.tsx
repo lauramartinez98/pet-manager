@@ -3,27 +3,29 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { ApiError } from '../api/api-client'
 import { useAuth } from '../auth/auth-context'
 import { Field } from '../components/forms/FormControls'
-import { inputClass } from '../constants/styles'
 import { errorMessage } from '../utils/errors'
 import { emailRules, REQUIRED } from '../utils/validation'
 import AuthLayout from './AuthLayout'
 import GoogleButton from './GoogleButton'
+import { inputClass, primaryButton } from '../constants/styles'
 
 interface LoginFormValues {
   email: string
   password: string
 }
 
+/** Mensaje de error del login: credenciales incorrectas en un 401, genérico en lo demás. */
 function loginErrorMessage(error: unknown): string {
   if (error instanceof ApiError && error.status === 401) return 'Email o contraseña incorrectos.'
   return errorMessage(error)
 }
 
+/** Página de inicio de sesión con email y contraseña o con Google. */
 export default function LoginPage() {
   const { login } = useAuth()
   // Conserva la página de origen al saltar a registro y volver
   const { state } = useLocation()
-  // El backend vuelve a /login?error=google si el usuario cancela o Google rechaza el acceso
+  /** El backend vuelve a /login?error=google si el usuario cancela o Google rechaza el acceso */
   const googleFailed = useSearchParams()[0].get('error') === 'google'
   const {
     register,
@@ -32,7 +34,7 @@ export default function LoginPage() {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({ defaultValues: { email: '', password: '' } })
 
-  // Al iniciar sesión, PublicOnly redirige automáticamente
+  /** Al iniciar sesión, PublicOnly redirige automáticamente */
   const submit = handleSubmit(async ({ email, password }) => {
     try {
       await login({ email: email.trim(), password })
@@ -55,7 +57,7 @@ export default function LoginPage() {
       }
     >
       {googleFailed && (
-        <p role="alert" className="mb-4 rounded-lg bg-white/70 px-3 py-2 text-sm text-brown">
+        <p role="alert" className="mb-4 rounded-xl bg-white/70 px-3 py-2 text-sm text-brown">
           No se pudo iniciar sesión con Google. Inténtalo de nuevo o usa tu email.
         </p>
       )}
@@ -73,7 +75,7 @@ export default function LoginPage() {
         </Field>
 
         {errors.root?.server && (
-          <p role="alert" className="rounded-lg bg-white/70 px-3 py-2 text-sm text-brown">
+          <p role="alert" className="rounded-xl bg-white/70 px-3 py-2 text-sm text-brown">
             {errors.root.server.message}
           </p>
         )}
@@ -81,7 +83,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-xl bg-brown px-4 py-2.5 font-semibold text-butter-yellow-light shadow-sm transition-opacity hover:opacity-90 disabled:opacity-50"
+          className={`w-full ${primaryButton}`}
         >
           {isSubmitting ? 'Entrando…' : 'Iniciar sesión'}
         </button>

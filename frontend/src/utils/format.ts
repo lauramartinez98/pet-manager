@@ -9,10 +9,13 @@ const dateTime = new Intl.DateTimeFormat('es-ES', {
 const shortDate = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short' })
 const time = new Intl.DateTimeFormat('es-ES', { hour: '2-digit', minute: '2-digit' })
 
+/** Importe en euros con formato español (24,90 €). */
 export const formatCurrency = (value: number) => currency.format(value)
+/** Fecha y hora abreviadas en español (p. ej. "lun, 5 oct, 10:30"). */
 export const formatDateTime = (iso: string) => dateTime.format(new Date(iso))
+/** Solo la hora (HH:mm). */
 export const formatTime = (iso: string) => time.format(new Date(iso))
-// Las fechas sin hora (YYYY-MM-DD) se parsean como locales para evitar desfases por zona horaria
+/** Las fechas sin hora (YYYY-MM-DD) se parsean como locales para evitar desfases por zona horaria */
 export const formatShortDate = (isoDate: string) => shortDate.format(new Date(`${isoDate}T00:00`))
 
 /** Instante actual en ISO 8601 (UTC) */

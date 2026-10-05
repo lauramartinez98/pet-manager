@@ -16,6 +16,7 @@ import java.util.UUID;
 @Service
 public class CurrentUserService {
 
+    /** Id del usuario autenticado, sacado del "sub" del JWT de la petición. */
     public UUID getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof JwtAuthenticationToken jwtAuth) {

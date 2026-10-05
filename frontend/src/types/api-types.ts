@@ -43,7 +43,7 @@ export interface PetRequest {
   species: Species
   /** maxLength 100 */
   breed?: string
-  /** > 0, <= 999.99 */
+  /** > 0, <= 999.99, máx. 2 decimales */
   weightKg?: number
   personality?: string
   /** Lista separada por comas */
@@ -65,7 +65,7 @@ export interface WalkResponse {
 
 /** #/components/schemas/WalkRequest */
 export interface WalkRequest {
-  /** > 0, <= 9999.99 */
+  /** > 0, <= 9999.99, máx. 2 decimales */
   distanceKm?: number
   /** integer, 1..1440 */
   durationMinutes?: number
@@ -89,7 +89,7 @@ export interface VetAppointmentResponse {
 export interface VetAppointmentRequest {
   /** maxLength 2000 */
   description?: string
-  /** >= 0 */
+  /** >= 0, <= 99999999.99, máx. 2 decimales */
   cost?: number
   /** format: date-time. Puede ser futura */
   appointmentDate: string
@@ -111,7 +111,7 @@ export interface ExpenseRequest {
   category: ExpenseCategory
   /** maxLength 2000 */
   description?: string
-  /** > 0 */
+  /** > 0, <= 99999999.99, máx. 2 decimales */
   amount: number
   /** format: date (YYYY-MM-DD). No puede ser futura */
   expenseDate: string

@@ -33,18 +33,19 @@ public class PetController {
     private final CurrentUserService currentUserService;
     private final PetPhotoService petPhotoService;
 
-    // Contrato: GET /pets -> mascotas del usuario autenticado
+    /** Contrato: GET /pets -> mascotas del usuario autenticado */
     @GetMapping
     public ResponseEntity<List<PetResponseDTO>> findAll() {
         return ResponseEntity.ok(petService.findAllByOwner(currentUserService.getCurrentUserId()));
     }
 
+    /** GET /pets/{petId}: detalle de una mascota del usuario (404 si no existe o es de otro). */
     @GetMapping("/{petId}")
     public ResponseEntity<PetResponseDTO> findById(@PathVariable UUID petId) {
         return ResponseEntity.ok(petService.findById(currentUserService.getCurrentUserId(), petId));
     }
 
-    // Contrato: POST /pets -> 201 sin cuerpo (la URL del recurso va en la cabecera Location)
+    /** Contrato: POST /pets -> 201 sin cuerpo (la URL del recurso va en la cabecera Location) */
     @PostMapping
     public ResponseEntity<Void> create(@Valid @RequestBody PetRequestDTO request) {
         PetResponseDTO created = petService.create(currentUserService.getCurrentUserId(), request);
@@ -55,7 +56,7 @@ public class PetController {
         return ResponseEntity.created(location).build();
     }
 
-    // Sustituye la foto (multipart, campo "file"). Devuelve la mascota con la nueva photoUrl
+    /** Sustituye la foto (multipart, campo "file"). Devuelve la mascota con la nueva photoUrl */
     @PutMapping(path = "/{petId}/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<PetResponseDTO> replacePhoto(@PathVariable UUID petId,
                                                        @RequestPart("file") MultipartFile file) {

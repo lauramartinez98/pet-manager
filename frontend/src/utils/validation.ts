@@ -25,16 +25,20 @@ interface NumberRuleOptions {
   exclusiveMin?: boolean
   max?: number
   integer?: boolean
+  /** Máximo de decimales (multipleOf del contrato, p. ej. 0.01 -> 2) */
+  decimals?: number
   /** Unidad para los mensajes, p. ej. "km" */
   unit?: string
 }
 
+/** Reglas de React Hook Form para un número del contrato: obligatorio, mínimo, máximo, entero y decimales. */
 export function numberRules({
   required = false,
   min,
   exclusiveMin = false,
   max,
   integer = false,
+  decimals,
   unit = '',
 }: NumberRuleOptions): StringFieldRules {
   const u = unit ? ` ${unit}` : ''
@@ -45,6 +49,7 @@ export function numberRules({
       const value = Number(raw)
       if (Number.isNaN(value)) return 'Introduce un número válido.'
       if (integer && !Number.isInteger(value)) return 'Debe ser un número entero.'
+      if (decimals != null && (raw.split('.')[1]?.length ?? 0) > decimals) return `Máximo ${decimals} decimales.`
       if (min != null && (exclusiveMin ? value <= min : value < min)) {
         return exclusiveMin ? `Debe ser mayor que ${min}${u}.` : `Debe ser al menos ${min}${u}.`
       }
@@ -54,6 +59,7 @@ export function numberRules({
   }
 }
 
+/** Reglas de React Hook Form para un texto: obligatorio (sin aceptar solo espacios) y longitud máxima. */
 export function textRules({ required = false, maxLength }: { required?: boolean; maxLength?: number }): StringFieldRules {
   return {
     required: required ? REQUIRED : false,
@@ -90,6 +96,7 @@ export const emailRules: StringFieldRules = {
 
 /** Convierte "" en undefined para no enviar campos opcionales vacíos a la API */
 export const optional = (value: string) => (value.trim() === '' ? undefined : value.trim())
+/** Convierte "" en undefined y el resto en número, para no enviar campos numéricos vacíos. */
 export const optionalNumber = (value: string) => (value.trim() === '' ? undefined : Number(value))
 
 // --- Fotos (PUT /pets/{petId}/photo) ---

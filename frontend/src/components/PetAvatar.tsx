@@ -6,7 +6,7 @@ interface PetAvatarProps {
   className?: string
 }
 
-// Foto circular de la mascota; si no hay foto o falla la carga, muestra la inicial
+/** Foto circular de la mascota; si no hay foto o falla la carga, muestra la inicial */
 export default function PetAvatar({ pet, className = 'size-10' }: PetAvatarProps) {
   const [failed, setFailed] = useState(false)
 

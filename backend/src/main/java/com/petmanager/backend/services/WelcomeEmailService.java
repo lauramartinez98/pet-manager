@@ -25,6 +25,7 @@ public class WelcomeEmailService {
     private final String from;
     private final String frontendUrl;
 
+    /** Recibe el cliente SMTP, la cuenta remitente y la URL del frontend para el botón del correo. */
     public WelcomeEmailService(JavaMailSender mailSender,
                                @Value("${spring.mail.username}") String from,
                                @Value("${app.frontend-url}") String frontendUrl) {
@@ -54,10 +55,12 @@ public class WelcomeEmailService {
         }
     }
 
+    /** Primer nombre del usuario, para el saludo. */
     private static String firstName(String fullName) {
         return fullName.trim().split("\\s+")[0];
     }
 
+    /** Versión en texto plano del correo, para clientes que no muestran HTML. */
     private String plainText(String fullName) {
         return """
                 ¡Hola, %s!
@@ -72,23 +75,23 @@ public class WelcomeEmailService {
                 """.formatted(firstName(fullName), frontendUrl);
     }
 
-    // HTML con estilos en línea (los clientes de correo ignoran <style>) y la paleta de ui-guidelines
+    /** HTML con estilos en línea (los clientes de correo ignoran <style>) y la paleta de ui-guidelines */
     private String html(String fullName) {
         String name = HtmlUtils.htmlEscape(firstName(fullName));
         String url = HtmlUtils.htmlEscape(frontendUrl);
         return """
                 <!doctype html>
                 <html lang="es">
-                <body style="margin:0;padding:0;background:#fffaea;font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#5c3d2e;">
-                  <table role="presentation" width="100%%" cellpadding="0" cellspacing="0" style="background:#fffaea;padding:32px 16px;">
+                <body style="margin:0;padding:0;background:#fdf9ec;font-family:Outfit,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#582f0e;">
+                  <table role="presentation" width="100%%" cellpadding="0" cellspacing="0" style="background:#fdf9ec;padding:32px 16px;">
                     <tr><td align="center">
                       <table role="presentation" width="100%%" cellpadding="0" cellspacing="0" style="max-width:520px;">
                         <tr><td align="center" style="padding-bottom:16px;">
-                          <div style="display:inline-block;width:64px;height:64px;line-height:64px;border-radius:50%%;background:#bcd6ec;font-size:30px;text-align:center;">🐾</div>
-                          <p style="margin:8px 0 0;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#8a6f62;">Pet Manager</p>
+                          <div style="display:inline-block;width:64px;height:64px;line-height:64px;border-radius:50%%;background:#a9bcd0;font-size:30px;text-align:center;">🐾</div>
+                          <p style="margin:8px 0 0;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#816246;">Pet Manager</p>
                         </td></tr>
-                        <tr><td style="background:#fdf1c7;border-radius:24px;padding:32px;box-shadow:0 4px 12px rgba(92,61,46,0.10);">
-                          <h1 style="margin:0 0 12px;font-size:24px;color:#5c3d2e;">¡Hola, %s!</h1>
+                        <tr><td style="background:#faf0ca;border-radius:24px;padding:32px;box-shadow:0 4px 12px rgba(88,47,14,0.08);">
+                          <h1 style="margin:0 0 12px;font-family:Nunito,'Segoe UI',Roboto,sans-serif;font-size:26px;font-weight:800;letter-spacing:-0.5px;color:#582f0e;">¡Hola, %s!</h1>
                           <p style="margin:0 0 16px;font-size:16px;line-height:1.5;">
                             Gracias por unirte a <strong>Pet Manager</strong>. Desde hoy puedes llevar en un solo sitio:
                           </p>
@@ -97,11 +100,11 @@ public class WelcomeEmailService {
                             <li>🩺 Las <strong>citas veterinarias</strong></li>
                             <li>💶 Los <strong>gastos</strong> de cada mascota</li>
                           </ul>
-                          <table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="border-radius:12px;background:#5c3d2e;">
-                            <a href="%s" style="display:inline-block;padding:12px 24px;font-size:15px;font-weight:600;color:#fffaea;text-decoration:none;">+ Añadir mi primera mascota</a>
+                          <table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="border-radius:16px;background:#582f0e;">
+                            <a href="%s" style="display:inline-block;padding:12px 24px;font-family:Nunito,'Segoe UI',Roboto,sans-serif;font-size:15px;font-weight:800;color:#fdf9ec;text-decoration:none;">+ Añadir mi primera mascota</a>
                           </td></tr></table>
                         </td></tr>
-                        <tr><td align="center" style="padding-top:20px;font-size:12px;color:#8a6f62;">
+                        <tr><td align="center" style="padding-top:20px;font-size:12px;color:#816246;">
                           Recibes este correo porque acabas de crear una cuenta en Pet Manager.
                         </td></tr>
                       </table>

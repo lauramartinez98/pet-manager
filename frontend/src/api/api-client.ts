@@ -37,8 +37,9 @@ export class ApiError extends Error {
   }
 }
 
+/** Hace la petición a la API con el JWT y lanza ApiError si la respuesta no es 2xx (un 401 con token cierra la sesión). */
 async function send(path: string, init: RequestInit = {}): Promise<Response> {
-  // securitySchemes.bearerAuth del contrato: el JWT va en cada petición que lo requiere
+  /** securitySchemes.bearerAuth del contrato: el JWT va en cada petición que lo requiere */
   const token = getToken()
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
@@ -60,11 +61,13 @@ async function send(path: string, init: RequestInit = {}): Promise<Response> {
   return response
 }
 
+/** Como send(), pero devuelve el cuerpo JSON ya tipado. */
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await send(path, init)
   return response.json() as Promise<T>
 }
 
+/** Ruta base de una mascota con el id escapado. */
 const petPath = (petId: string) => `/pets/${encodeURIComponent(petId)}`
 
 // --- Auth ---

@@ -18,6 +18,7 @@ interface WalkFormProps {
   onCancel: () => void
 }
 
+/** Formulario de paseo validado con las reglas de WalkRequest del contrato. */
 export default function WalkForm({ onSubmit, onCancel }: WalkFormProps) {
   const {
     register,
@@ -52,10 +53,10 @@ export default function WalkForm({ onSubmit, onCancel }: WalkFormProps) {
             type="number"
             inputMode="decimal"
             step="0.01"
-            placeholder="2.5"
+            placeholder="p. ej. 2.5"
             autoFocus
             className={inputClass}
-            {...register('distanceKm', numberRules({ required: true, min: 0, exclusiveMin: true, max: 9999.99, unit: 'km' }))}
+            {...register('distanceKm', numberRules({ required: true, min: 0, exclusiveMin: true, max: 9999.99, decimals: 2, unit: 'km' }))}
           />
         </Field>
         <Field label="Tiempo (min)" error={errors.durationMinutes?.message}>
@@ -63,7 +64,7 @@ export default function WalkForm({ onSubmit, onCancel }: WalkFormProps) {
             type="number"
             inputMode="numeric"
             step="1"
-            placeholder="30"
+            placeholder="p. ej. 30"
             className={inputClass}
             {...register('durationMinutes', numberRules({ required: true, min: 1, max: 1440, integer: true, unit: 'min' }))}
           />

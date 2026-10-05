@@ -30,11 +30,13 @@ public class GoogleLoginHandlers implements AuthenticationSuccessHandler, Authen
     private final AuthService authService;
     private final String frontendUrl;
 
+    /** Recibe el servicio de autenticación y la URL del frontend a la que se redirige al terminar. */
     public GoogleLoginHandlers(AuthService authService, @Value("${app.frontend-url}") String frontendUrl) {
         this.authService = authService;
         this.frontendUrl = frontendUrl;
     }
 
+    /** Login con Google correcto: crea o recupera la cuenta y redirige al frontend con el JWT en el fragmento de la URL. */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
@@ -54,6 +56,7 @@ public class GoogleLoginHandlers implements AuthenticationSuccessHandler, Authen
         }
     }
 
+    /** Login con Google cancelado o fallido: redirige a /login?error=google del frontend. */
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException {
@@ -63,7 +66,7 @@ public class GoogleLoginHandlers implements AuthenticationSuccessHandler, Authen
         response.sendRedirect(frontendUrl + "/login?error=google");
     }
 
-    // La sesión solo sirve para guardar el "state" del flujo OAuth2; después la API es sin estado (JWT)
+    /** La sesión solo sirve para guardar el "state" del flujo OAuth2; después la API es sin estado (JWT) */
     private static void endTemporarySession(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) session.invalidate();

@@ -27,6 +27,7 @@ interface NewPetModalProps {
   onCreated: (petId: string, photoUploadFailed: boolean) => void
 }
 
+/** Modal para crear una mascota (con foto opcional) validado con PetRequest del contrato. */
 export default function NewPetModal({ onClose, onCreated }: NewPetModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const {
@@ -91,10 +92,10 @@ export default function NewPetModal({ onClose, onCreated }: NewPetModalProps) {
     >
       <form onSubmit={submit} noValidate className="space-y-4 p-8">
         <header>
-          <h2 id="new-pet-title" className="text-2xl font-bold">
+          <h2 id="new-pet-title" className="text-2xl">
             🐾 Nuevo miembro
           </h2>
-          <p className="text-sm text-brown/70">Cuéntanos sobre tu mascota.</p>
+          <p className="text-sm text-brown/75">Cuéntanos sobre tu mascota.</p>
         </header>
 
         <PhotoPicker file={photo} error={errors.photo?.message} inputProps={register('photo', photoRules)} />
@@ -103,7 +104,7 @@ export default function NewPetModal({ onClose, onCreated }: NewPetModalProps) {
         <Field label="Nombre *" error={errors.name?.message}>
           <input
             autoFocus
-            placeholder="Toby"
+            placeholder="p. ej. Toby"
             className={inputClass}
             {...register('name', textRules({ required: true, maxLength: 100 }))}
           />
@@ -123,7 +124,7 @@ export default function NewPetModal({ onClose, onCreated }: NewPetModalProps) {
         <div className="grid grid-cols-2 gap-3">
           <Field label="Raza" error={errors.breed?.message}>
             <input
-              placeholder="Golden Retriever"
+              placeholder="p. ej. Golden Retriever"
               className={inputClass}
               {...register('breed', textRules({ maxLength: 100 }))}
             />
@@ -133,9 +134,9 @@ export default function NewPetModal({ onClose, onCreated }: NewPetModalProps) {
               type="number"
               inputMode="decimal"
               step="0.01"
-              placeholder="12.5"
+              placeholder="p. ej. 12.5"
               className={inputClass}
-              {...register('weightKg', numberRules({ min: 0, exclusiveMin: true, max: 999.99, unit: 'kg' }))}
+              {...register('weightKg', numberRules({ min: 0, exclusiveMin: true, max: 999.99, decimals: 2, unit: 'kg' }))}
             />
           </Field>
         </div>
@@ -143,7 +144,7 @@ export default function NewPetModal({ onClose, onCreated }: NewPetModalProps) {
         <Field label="Personalidad">
           <textarea
             rows={2}
-            placeholder="Juguetón, cariñoso…"
+            placeholder="p. ej. Juguetón, cariñoso…"
             className={`${inputClass} resize-none`}
             {...register('personality')}
           />
@@ -151,7 +152,7 @@ export default function NewPetModal({ onClose, onCreated }: NewPetModalProps) {
 
         <Field label="Patologías" hint="Sepáralas con comas.">
           <input
-            placeholder="Alergia al pollo, Displasia leve"
+            placeholder="p. ej. Alergia al pollo, Displasia leve"
             className={inputClass}
             {...register('pathologies')}
           />

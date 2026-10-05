@@ -8,6 +8,7 @@ import java.util.UUID;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException {
 
+    /** Recurso inexistente o de otro usuario (se traduce en un 404). */
     public ResourceNotFoundException(String resource, UUID id) {
         super("%s con id %s no encontrado".formatted(resource, id));
     }

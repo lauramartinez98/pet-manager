@@ -1,16 +1,19 @@
 import { GOOGLE_LOGIN_URL } from '../api/api-client'
+import { lift } from '../constants/styles'
 
-// Botón "Continuar con Google": navegación completa al backend, que redirige a Google (no es una llamada fetch).
-// El logotipo "G" mantiene sus colores oficiales, como piden las normas de marca de Google.
+/**
+ * Botón "Continuar con Google": navegación completa al backend, que redirige a Google (no es una llamada fetch).
+ * El logotipo "G" mantiene sus colores oficiales, como piden las normas de marca de Google.
+ */
 export default function GoogleButton() {
   return (
     <>
-      <div className="my-5 flex items-center gap-3 text-xs text-brown/60" aria-hidden="true">
+      <div className="my-5 flex items-center gap-3 text-xs text-brown/75" aria-hidden="true">
         <span className="h-px flex-1 bg-brown/15" />o<span className="h-px flex-1 bg-brown/15" />
       </div>
       <a
         href={GOOGLE_LOGIN_URL}
-        className="flex w-full items-center justify-center gap-3 rounded-xl border border-brown/20 bg-white px-4 py-2.5 font-semibold text-brown shadow-sm transition-colors hover:bg-butter-yellow-light focus-visible:ring-2 focus-visible:ring-soft-blue focus-visible:outline-none"
+        className={`flex w-full items-center justify-center gap-3 rounded-2xl border border-brown/20 bg-white px-4 py-2.5 font-display font-bold text-brown shadow-lg shadow-brown/5 ${lift} hover:bg-butter-yellow-light focus-visible:ring-2 focus-visible:ring-soft-blue focus-visible:outline-none`}
       >
         <svg viewBox="0 0 48 48" className="size-5" aria-hidden="true">
           <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z" />

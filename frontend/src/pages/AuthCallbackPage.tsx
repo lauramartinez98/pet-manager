@@ -12,7 +12,7 @@ function takeTokenFromHash(): string | null {
   return token
 }
 
-// Destino de la vuelta del login con Google: /auth/callback#token=<jwt>
+/** Destino de la vuelta del login con Google: /auth/callback#token=<jwt> */
 export default function AuthCallbackPage() {
   const { loginWithToken } = useAuth()
   const navigate = useNavigate()

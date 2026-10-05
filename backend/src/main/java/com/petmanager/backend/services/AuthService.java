@@ -29,6 +29,7 @@ public class AuthService {
     private final TokenService tokenService;
     private final ApplicationEventPublisher events;
 
+    /** Crea la cuenta (email normalizado, contraseña hasheada), lanza el evento del correo de bienvenida y devuelve ya un token de sesión. 409 si el email existe. */
     @Transactional
     public AuthResponseDTO register(UserRequestDTO request) {
         String email = normalize(request.email());
@@ -71,6 +72,7 @@ public class AuthService {
         return tokenService.issue(user);
     }
 
+    /** Inicia sesión con email y contraseña y devuelve un token; 401 con el mismo mensaje tanto si falla el email como la contraseña. */
     public AuthResponseDTO login(LoginRequestDTO request) {
         // Mismo error para email inexistente y contraseña incorrecta: no revela qué cuentas existen
         User user = userRepository.findByEmail(normalize(request.email()))
@@ -80,6 +82,7 @@ public class AuthService {
         return tokenService.issue(user);
     }
 
+    /** Devuelve el usuario de la sesión; 401 si el token es válido pero la cuenta ya no existe. */
     public UserResponseDTO me(UUID userId) {
         return userRepository.findById(userId)
                 .map(UserResponseDTO::from)
@@ -87,6 +90,7 @@ public class AuthService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "La cuenta no existe"));
     }
 
+    /** Normaliza el email (sin espacios y en minúsculas) para que no haya cuentas duplicadas por mayúsculas. */
     private static String normalize(String email) {
         return email.trim().toLowerCase(Locale.ROOT);
     }

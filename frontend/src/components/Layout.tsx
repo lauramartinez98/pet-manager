@@ -6,11 +6,13 @@ import type { LayoutContext } from '../hooks/useLayoutContext'
 import Navbar from './Navbar'
 import NewPetModal from './NewPetModal'
 
+/** Estructura fija de la app: Navbar con las mascotas a la izquierda y la página activa a la derecha. */
 export default function Layout() {
   const navigate = useNavigate()
   const [showNewPet, setShowNewPet] = useState(false)
   const { data: pets, loading, error, reload } = useApi((signal) => getPets(signal), [])
 
+  /** Tras crear una mascota: cierra el modal, recarga el Navbar y abre su ficha. */
   function handlePetCreated(petId: string, photoUploadFailed: boolean) {
     setShowNewPet(false)
     reload()

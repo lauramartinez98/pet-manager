@@ -13,6 +13,7 @@ public record UserResponseDTO(
         LocalDate birthDate
 ) {
 
+    /** Construye la respuesta de la API a partir de la entidad (sin el hash de la contraseña). */
     public static UserResponseDTO from(User user) {
         return new UserResponseDTO(user.getId(), user.getFullName(), user.getEmail(), user.getBirthDate());
     }

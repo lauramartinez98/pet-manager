@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom'
 import { useLayoutContext } from '../hooks/useLayoutContext'
 import { LoadingState } from './Feedback'
 
-// Ruta "/": abre la primera mascota del usuario, o invita a crear una si no tiene
+/** Ruta "/": abre la primera mascota del usuario, o invita a crear una si no tiene */
 export default function HomeRedirect() {
   const { pets, petsLoading, petsError } = useLayoutContext()
 
@@ -15,10 +15,10 @@ export default function HomeRedirect() {
   }
 
   return (
-    <section className="mx-auto mt-16 max-w-md rounded-3xl bg-butter-yellow p-10 text-center shadow-sm">
+    <section className="mx-auto mt-16 max-w-md rounded-3xl bg-butter-yellow p-10 text-center shadow-lg shadow-brown/5">
       <p className="text-5xl" aria-hidden="true">🐾</p>
-      <h2 className="mt-4 text-2xl font-bold text-brown">Aún no hay ningún miembro</h2>
-      <p className="mt-2 text-brown/70">Usa «+ Nuevo miembro» para añadir tu primera mascota.</p>
+      <h2 className="mt-4 text-2xl text-brown">Aún no hay ningún miembro</h2>
+      <p className="mt-2 text-brown/75">Usa «+ Nuevo miembro» para añadir tu primera mascota.</p>
     </section>
   )
 }

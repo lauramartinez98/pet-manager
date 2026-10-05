@@ -3,11 +3,11 @@ import { Link, useLocation } from 'react-router-dom'
 import { ApiError } from '../api/api-client'
 import { useAuth } from '../auth/auth-context'
 import { Field } from '../components/forms/FormControls'
-import { inputClass } from '../constants/styles'
 import { errorMessage } from '../utils/errors'
 import { emailRules, optional, REQUIRED, strictlyPastDateRules, textRules } from '../utils/validation'
 import AuthLayout from './AuthLayout'
 import GoogleButton from './GoogleButton'
+import { inputClass, primaryButton } from '../constants/styles'
 
 interface RegisterFormValues {
   fullName: string
@@ -17,11 +17,13 @@ interface RegisterFormValues {
   birthDate: string
 }
 
+/** Mensaje de error del registro: email repetido en un 409, genérico en lo demás. */
 function registerErrorMessage(error: unknown): string {
   if (error instanceof ApiError && error.status === 409) return 'Ya existe una cuenta con ese email.'
   return errorMessage(error)
 }
 
+/** Página de registro; al crear la cuenta el usuario entra directamente. */
 export default function RegisterPage() {
   const { register: registerAccount } = useAuth()
   const { state } = useLocation()
@@ -34,7 +36,7 @@ export default function RegisterPage() {
     defaultValues: { fullName: '', email: '', password: '', confirm: '', birthDate: '' },
   })
 
-  // Al registrarse, el backend devuelve un token y PublicOnly redirige al inicio
+  /** Al registrarse, el backend devuelve un token y PublicOnly redirige al inicio */
   const submit = handleSubmit(async (values) => {
     try {
       await registerAccount({
@@ -104,7 +106,7 @@ export default function RegisterPage() {
         </Field>
 
         {errors.root?.server && (
-          <p role="alert" className="rounded-lg bg-white/70 px-3 py-2 text-sm text-brown">
+          <p role="alert" className="rounded-xl bg-white/70 px-3 py-2 text-sm text-brown">
             {errors.root.server.message}
           </p>
         )}
@@ -112,7 +114,7 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-xl bg-brown px-4 py-2.5 font-semibold text-butter-yellow-light shadow-sm transition-opacity hover:opacity-90 disabled:opacity-50"
+          className={`w-full ${primaryButton}`}
         >
           {isSubmitting ? 'Creando cuenta…' : 'Crear cuenta'}
         </button>

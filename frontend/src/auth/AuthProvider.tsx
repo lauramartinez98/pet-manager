@@ -10,6 +10,7 @@ interface AuthState {
   loggedOut: boolean
 }
 
+/** Gestiona la sesión: valida el token guardado al arrancar y expone login, registro y logout al resto de la app. */
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AuthState>(() => ({
     status: getToken() ? 'loading' : 'anonymous',

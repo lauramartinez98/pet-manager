@@ -24,6 +24,7 @@ export interface AuthContextValue {
 
 export const AuthContext = createContext<AuthContextValue | null>(null)
 
+/** Acceso a la sesión (usuario, estado, login, logout…); debe usarse dentro de <AuthProvider>. */
 export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthContext)
   if (!ctx) throw new Error('useAuth debe usarse dentro de <AuthProvider>')

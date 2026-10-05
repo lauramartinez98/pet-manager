@@ -17,6 +17,7 @@ interface VetAppointmentFormProps {
   onCancel: () => void
 }
 
+/** Formulario de cita veterinaria validado con las reglas de VetAppointmentRequest del contrato. */
 export default function VetAppointmentForm({ onSubmit, onCancel }: VetAppointmentFormProps) {
   const {
     register,
@@ -45,7 +46,7 @@ export default function VetAppointmentForm({ onSubmit, onCancel }: VetAppointmen
       {/* Reglas alineadas con VetAppointmentRequest en openapi.yaml */}
       <Field label="Motivo" error={errors.description?.message}>
         <input
-          placeholder="Vacuna anual"
+          placeholder="p. ej. Vacuna anual"
           autoFocus
           className={inputClass}
           {...register('description', textRules({ maxLength: 2000 }))}
@@ -60,9 +61,9 @@ export default function VetAppointmentForm({ onSubmit, onCancel }: VetAppointmen
             type="number"
             inputMode="decimal"
             step="0.01"
-            placeholder="45"
+            placeholder="p. ej. 45"
             className={inputClass}
-            {...register('cost', numberRules({ min: 0, unit: '€' }))}
+            {...register('cost', numberRules({ min: 0, max: 99999999.99, decimals: 2, unit: '€' }))}
           />
         </Field>
       </div>

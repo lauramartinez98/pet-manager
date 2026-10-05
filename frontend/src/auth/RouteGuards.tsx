@@ -2,6 +2,7 @@ import { Navigate, Outlet, useLocation, type Location } from 'react-router-dom'
 import { LoadingState } from '../components/Feedback'
 import { useAuth } from './auth-context'
 
+/** Pantalla de carga mientras se comprueba la sesión guardada. */
 function FullScreenLoading() {
   return (
     <div className="flex min-h-screen items-center justify-center">

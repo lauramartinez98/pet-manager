@@ -13,6 +13,7 @@ public record VetAppointmentResponseDTO(
         OffsetDateTime appointmentDate
 ) {
 
+    /** Construye la respuesta de la API a partir de la entidad. */
     public static VetAppointmentResponseDTO from(VetAppointment appointment) {
         return new VetAppointmentResponseDTO(
                 appointment.getId(),

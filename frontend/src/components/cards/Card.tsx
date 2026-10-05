@@ -7,12 +7,12 @@ interface CardProps {
   children: ReactNode
 }
 
-// Contenedor común de las tarjetas del dashboard (ui-guidelines: Butter Yellow, bordes suaves y sombra ligera)
+/** Contenedor común de las tarjetas del dashboard (ui-guidelines: Butter Yellow, bordes suaves y sombra ligera) */
 export default function Card({ title, icon, action, children }: CardProps) {
   return (
-    <section className="flex flex-col rounded-2xl bg-butter-yellow p-6 shadow-md shadow-brown/10">
+    <section className="flex flex-col rounded-3xl bg-butter-yellow p-6 shadow-lg shadow-brown/5">
       <header className="mb-4 flex items-center justify-between gap-3">
-        <h3 className="flex items-center gap-2 text-lg font-bold text-brown">
+        <h3 className="flex items-center gap-2 text-lg text-brown">
           <span aria-hidden="true">{icon}</span>
           {title}
         </h3>
@@ -23,9 +23,10 @@ export default function Card({ title, icon, action, children }: CardProps) {
   )
 }
 
+/** Mensaje para cuando una tarjeta todavía no tiene datos. */
 export function EmptyState({ children }: { children: ReactNode }) {
   return (
-    <p className="rounded-xl border border-dashed border-brown/20 px-4 py-6 text-center text-sm text-brown/60">
+    <p className="rounded-2xl border border-dashed border-brown/20 px-4 py-6 text-center text-sm font-light text-brown/75">
       {children}
     </p>
   )

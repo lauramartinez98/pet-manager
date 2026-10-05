@@ -19,6 +19,7 @@ public class VetAppointmentService {
     private final VetAppointmentRepository vetAppointmentRepository;
     private final PetService petService;
 
+    /** Registra una cita veterinaria en una mascota del usuario (404 si no es suya). */
     @Transactional
     public VetAppointmentResponseDTO create(UUID ownerId, UUID petId, VetAppointmentRequestDTO request) {
         VetAppointment appointment = VetAppointment.builder()
@@ -31,6 +32,7 @@ public class VetAppointmentService {
         return VetAppointmentResponseDTO.from(vetAppointmentRepository.save(appointment));
     }
 
+    /** Citas de una mascota del usuario ordenadas por fecha ascendente (pasadas y futuras). */
     public List<VetAppointmentResponseDTO> findAllByPet(UUID ownerId, UUID petId) {
         petService.assertPetExists(ownerId, petId);
         return vetAppointmentRepository.findByPetIdOrderByAppointmentDateAsc(petId).stream()

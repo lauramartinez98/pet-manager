@@ -19,6 +19,7 @@ public class ExpenseService {
     private final ExpenseRepository expenseRepository;
     private final PetService petService;
 
+    /** Registra un gasto en una mascota del usuario (404 si no es suya). */
     @Transactional
     public ExpenseResponseDTO create(UUID ownerId, UUID petId, ExpenseRequestDTO request) {
         Expense expense = Expense.builder()
@@ -32,6 +33,7 @@ public class ExpenseService {
         return ExpenseResponseDTO.from(expenseRepository.save(expense));
     }
 
+    /** Gastos de una mascota del usuario, del más reciente al más antiguo. */
     public List<ExpenseResponseDTO> findAllByPet(UUID ownerId, UUID petId) {
         petService.assertPetExists(ownerId, petId);
         return expenseRepository.findByPetIdOrderByExpenseDateDesc(petId).stream()

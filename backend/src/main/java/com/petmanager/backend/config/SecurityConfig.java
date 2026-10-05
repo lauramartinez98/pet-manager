@@ -64,6 +64,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /** Clave HMAC para firmar los JWT a partir de JWT_SECRET; falla al arrancar si falta o tiene menos de 256 bits. */
     @Bean
     public SecretKey jwtSecretKey(JwtProperties properties) {
         if (properties.secret() == null || properties.secret().isBlank()) {
@@ -76,11 +77,13 @@ public class SecurityConfig {
         return new SecretKeySpec(bytes, "HmacSHA256");
     }
 
+    /** Firma los JWT (HS256) que emite TokenService. */
     @Bean
     public JwtEncoder jwtEncoder(SecretKey jwtSecretKey) {
         return new NimbusJwtEncoder(new ImmutableSecret<>(jwtSecretKey));
     }
 
+    /** Valida los JWT entrantes: firma HS256, caducidad y emisor. */
     @Bean
     public JwtDecoder jwtDecoder(SecretKey jwtSecretKey, JwtProperties properties) {
         NimbusJwtDecoder decoder = NimbusJwtDecoder.withSecretKey(jwtSecretKey)
@@ -91,6 +94,7 @@ public class SecurityConfig {
         return decoder;
     }
 
+    /** Hashea y comprueba las contraseñas con BCrypt. */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

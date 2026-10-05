@@ -30,6 +30,7 @@ public class PhotoStorageService implements ApplicationRunner {
     private final SupabaseProperties properties;
     private final RestClient client;
 
+    /** Prepara el cliente HTTP de Supabase Storage autenticado con la service key (solo en el backend). */
     public PhotoStorageService(SupabaseProperties properties) {
         this.properties = properties;
         this.client = RestClient.builder()
@@ -93,6 +94,7 @@ public class PhotoStorageService implements ApplicationRunner {
         }
     }
 
+    /** URL pública de un archivo del bucket de fotos. */
     private String publicUrl(String path) {
         return properties.baseUrl() + "/storage/v1/object/public/" + properties.photosBucket() + "/" + path;
     }

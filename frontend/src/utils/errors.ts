@@ -1,5 +1,6 @@
 import { ApiError } from '../api/api-client'
 
+/** Traduce un error de la API o de red a un mensaje en español para el usuario. */
 export function errorMessage(error: unknown): string {
   if (error instanceof ApiError) {
     if (error.status === 404) return 'No se ha encontrado.'

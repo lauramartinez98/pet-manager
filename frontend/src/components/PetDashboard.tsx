@@ -9,8 +9,9 @@ import WalksCard from './cards/WalksCard'
 import { ErrorState, LoadingState } from './Feedback'
 import ChangePhotoButton from './ChangePhotoButton'
 
+/** Ficha de una mascota: cabecera con foto y datos, y las tarjetas de paseos, citas y gastos. */
 export default function PetDashboard() {
-  // La ruta pets/:petId garantiza que existe
+  /** La ruta pets/:petId garantiza que existe */
   const petId = useParams().petId!
   const { data: pet, loading, error, reload } = useApi((signal) => getPet(petId, signal), [petId])
   const { reloadPets } = useLayoutContext()
@@ -25,14 +26,14 @@ export default function PetDashboard() {
     .filter(Boolean) ?? []
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {photoUploadFailed && !pet.photoUrl && (
         <p role="status" className="rounded-xl bg-white/70 px-4 py-3 text-sm text-brown">
           ⚠️ {pet.name} se ha creado, pero no se pudo subir la foto. Pulsa sobre el círculo para intentarlo de nuevo.
         </p>
       )}
 
-      <section className="rounded-3xl bg-butter-yellow p-8 shadow-sm">
+      <section className="rounded-3xl bg-butter-yellow p-8 shadow-lg shadow-brown/5">
         <div className="flex flex-col gap-8 md:flex-row md:items-start">
           <ChangePhotoButton
             pet={pet}
@@ -43,7 +44,7 @@ export default function PetDashboard() {
           />
 
           <div className="min-w-0 flex-1">
-            <h2 className="text-4xl font-bold text-brown">{pet.name}</h2>
+            <h2 className="text-4xl text-brown">{pet.name}</h2>
 
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <span className="rounded-full bg-soft-blue px-3 py-1 text-sm font-semibold text-brown">
@@ -63,14 +64,14 @@ export default function PetDashboard() {
 
             <dl className="mt-6 grid gap-6 lg:grid-cols-2">
               <div>
-                <dt className="text-xs font-semibold tracking-wide text-brown/60 uppercase">
+                <dt className="text-xs font-semibold tracking-wide text-brown/75 uppercase">
                   Personalidad
                 </dt>
-                <dd className="mt-1 text-brown">{pet.personality || 'Sin descripción todavía.'}</dd>
+                <dd className="mt-1 font-light text-brown">{pet.personality || 'Sin descripción todavía.'}</dd>
               </div>
 
               <div>
-                <dt className="text-xs font-semibold tracking-wide text-brown/60 uppercase">
+                <dt className="text-xs font-semibold tracking-wide text-brown/75 uppercase">
                   Patologías
                 </dt>
                 <dd className="mt-2">
@@ -95,7 +96,7 @@ export default function PetDashboard() {
         </div>
       </section>
 
-      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 2xl:grid-cols-3">
         {/* key: reinicia el estado interno de cada tarjeta al cambiar de mascota */}
         <WalksCard key={`walks-${pet.id}`} petId={pet.id} />
         <VetsCard key={`vets-${pet.id}`} petId={pet.id} />

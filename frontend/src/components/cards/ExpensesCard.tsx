@@ -9,13 +9,14 @@ import { AddButton } from '../forms/FormControls'
 import ExpenseForm from '../forms/ExpenseForm'
 import Card, { EmptyState } from './Card'
 
-// Recharts pesa ~400 kB: se descarga solo cuando hay gráfico que pintar
+/** Recharts pesa ~400 kB: se descarga solo cuando hay gráfico que pintar */
 const ExpensesByCategoryChart = lazy(() => import('./ExpensesByCategoryChart'))
 
 interface ExpensesCardProps {
   petId: string
 }
 
+/** Tarjeta de gastos: total, gráfico por categoría, lista y formulario para añadir. */
 export default function ExpensesCard({ petId }: ExpensesCardProps) {
   const [showForm, setShowForm] = useState(false)
   const { data: expenses, loading, error, reload } = useApi(
@@ -26,6 +27,7 @@ export default function ExpensesCard({ petId }: ExpensesCardProps) {
   const total = expenses?.reduce((sum, e) => sum + e.amount, 0) ?? 0
   const categoryCount = new Set(expenses?.map((e) => e.category)).size
 
+  /** Guarda el gasto, cierra el formulario y recarga la lista. */
   async function handleCreate(data: ExpenseRequest) {
     await createPetExpense(petId, data)
     setShowForm(false)
@@ -49,8 +51,8 @@ export default function ExpensesCard({ petId }: ExpensesCardProps) {
       ) : (
         <>
           <div className="mb-4 flex items-baseline justify-between rounded-xl bg-white/60 px-4 py-3">
-            <span className="text-sm text-brown/70">Total</span>
-            <span className="text-2xl font-bold text-brown">{formatCurrency(total)}</span>
+            <span className="text-sm text-brown/75">Total</span>
+            <span className="font-display text-2xl font-extrabold text-brown">{formatCurrency(total)}</span>
           </div>
 
           {categoryCount >= 2 && (
@@ -75,7 +77,7 @@ export default function ExpensesCard({ petId }: ExpensesCardProps) {
                     <p className="truncate font-semibold text-brown">
                       {expense.description || category.label}
                     </p>
-                    <p className="text-brown/60">
+                    <p className="text-brown/75">
                       {category.label} · {formatShortDate(expense.expenseDate)}
                     </p>
                   </div>

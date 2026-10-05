@@ -18,6 +18,7 @@ public record PetResponseDTO(
         String photoUrl
 ) {
 
+    /** Construye la respuesta de la API a partir de la entidad (sin datos del dueño). */
     public static PetResponseDTO from(Pet pet) {
         return new PetResponseDTO(
                 pet.getId(),

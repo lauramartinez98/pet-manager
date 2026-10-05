@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage'
 import AuthCallbackPage from './pages/AuthCallbackPage'
 import RegisterPage from './pages/RegisterPage'
 
+/** Rutas de la aplicación: login y registro públicos, callback de Google y el resto protegido por sesión. */
 function App() {
   return (
     <BrowserRouter>

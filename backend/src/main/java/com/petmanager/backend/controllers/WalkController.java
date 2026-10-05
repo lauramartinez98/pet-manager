@@ -32,7 +32,7 @@ public class WalkController {
     private final WalkService walkService;
     private final CurrentUserService currentUserService;
 
-    // Sin parámetros: todos los paseos. Con ?date=2026-10-05&tz=Europe/Madrid: solo los de ese día
+    /** Sin parámetros: todos los paseos. Con ?date=2026-10-05&tz=Europe/Madrid: solo los de ese día */
     @GetMapping
     public ResponseEntity<List<WalkResponseDTO>> findAll(
             @PathVariable UUID petId,
@@ -44,12 +44,14 @@ public class WalkController {
         return ResponseEntity.ok(walkService.findAllByPetAndDay(currentUserService.getCurrentUserId(), petId, date, parseZone(tz)));
     }
 
+    /** POST /pets/{petId}/walks: registra un paseo y responde 201 con el paseo creado. */
     @PostMapping
     public ResponseEntity<WalkResponseDTO> create(@PathVariable UUID petId,
                                                   @Valid @RequestBody WalkRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(walkService.create(currentUserService.getCurrentUserId(), petId, request));
     }
 
+    /** Convierte el parámetro tz en una zona horaria; si no es una zona IANA válida responde 400. */
     private static ZoneId parseZone(String tz) {
         try {
             return ZoneId.of(tz);

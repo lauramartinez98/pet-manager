@@ -1,0 +1,23 @@
+# Reglas comunes a todo el monorepo (backend/ y frontend/ tienen además las suyas)
+
+### Secretos: nunca al repositorio, estén en la carpeta que estén ###
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+### Claude Code: ajustes personales de cada desarrollador ###
+.claude/settings.local.json
+
+### Sistema operativo ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### Editores ###
+.idea/
+*.swp
+
+### Logs ###
+*.log

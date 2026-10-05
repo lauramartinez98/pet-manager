@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+/*
+ * Paleta de ui-guidelines.md (las guidelines nombran los colores; estos son sus valores).
+ * Uso como clases Tailwind: bg-butter-yellow, bg-soft-blue, text-brown, bg-brown/10...
+ *   - butter-yellow: fondos generales y tarjetas grandes
+ *   - soft-blue:     elementos secundarios, Navbar, badges, estados inactivos
+ *   - brown:         tipografía principal, títulos, iconos y botones primarios
+ */
+@theme {
+  --color-butter-yellow: #fdf1c7;
+  --color-butter-yellow-light: #fffaea;
+  --color-soft-blue: #bcd6ec;
+  --color-brown: #5c3d2e;
+}
+
+body {
+  @apply bg-butter-yellow-light text-brown antialiased;
+}

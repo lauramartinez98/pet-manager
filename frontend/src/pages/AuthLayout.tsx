@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import AppLogo from '../components/AppLogo'
 
 interface AuthLayoutProps {
   title: string
@@ -13,11 +14,8 @@ export default function AuthLayout({ title, subtitle, children, footer }: AuthLa
     <main className="flex min-h-screen items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
         <div className="mb-6 flex flex-col items-center text-center">
-          <span
-            className="flex size-16 items-center justify-center rounded-full bg-soft-blue text-3xl shadow-lg shadow-brown/10"
-            aria-hidden="true"
-          >
-            🐾
+          <span className="flex size-20 items-center justify-center rounded-full bg-soft-blue shadow-lg shadow-brown/10">
+            <AppLogo className="size-14" />
           </span>
           <p className="mt-3 font-display text-lg font-extrabold tracking-tight text-brown">Pet Manager</p>
         </div>

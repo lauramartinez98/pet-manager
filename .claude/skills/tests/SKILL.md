@@ -1,6 +1,7 @@
 ---
 name: tests
 description: Ejecuta toda la batería de pruebas de Pet Manager (contrato OpenAPI, tests del backend y build/lint del frontend) y resume los resultados. Úsala solo cuando la usuaria lo pida con /tests.
+disable-model-invocation: true
 ---
 
 Ejecuta, en este orden, y resume el resultado de cada paso en una tabla (✓ / ✗ con el motivo):

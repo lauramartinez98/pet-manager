@@ -51,7 +51,7 @@ export default function ExpenseForm({ onSubmit, onCancel }: ExpenseFormProps) {
           <select className={inputClass} {...register('category')}>
             {(Object.keys(EXPENSE_CATEGORY_LABELS) as ExpenseCategory[]).map((c) => (
               <option key={c} value={c}>
-                {EXPENSE_CATEGORY_LABELS[c].icon} {EXPENSE_CATEGORY_LABELS[c].label}
+                {EXPENSE_CATEGORY_LABELS[c].label}
               </option>
             ))}
           </select>

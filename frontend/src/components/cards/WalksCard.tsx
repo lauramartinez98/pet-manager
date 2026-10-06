@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { Droplet, Footprints, type LucideIcon } from 'lucide-react'
+import { useState, type ComponentType, type SVGProps } from 'react'
 import { createPetWalk, getPetWalks } from '../../api/api-client'
 import { useApi } from '../../hooks/useApi'
 import type { WalkRequest } from '../../types/api-types'
@@ -6,6 +7,7 @@ import { browserTimeZone, formatTime, todayIsoDate } from '../../utils/format'
 import { ErrorState, LoadingState } from '../Feedback'
 import { AddButton } from '../forms/FormControls'
 import WalkForm from '../forms/WalkForm'
+import PoopIcon from '../icons/PoopIcon'
 import Card, { EmptyState } from './Card'
 
 interface WalksCardProps {
@@ -33,7 +35,7 @@ export default function WalksCard({ petId }: WalksCardProps) {
   return (
     <Card
       title="Paseos de hoy"
-      icon="🦮"
+      icon={Footprints}
       action={!showForm && <AddButton label="Añadir paseo" onClick={() => setShowForm(true)} />}
     >
       {showForm && <WalkForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />}
@@ -66,8 +68,8 @@ export default function WalksCard({ petId }: WalksCardProps) {
                     </p>
                   </div>
                   <div className="flex gap-1.5">
-                    <Badge active={walk.didPee} icon="💧" label="Pipí" />
-                    <Badge active={walk.didPoop} icon="💩" label="Caca" />
+                    <Badge active={walk.didPee} icon={Droplet} label="Pipí" />
+                    <Badge active={walk.didPoop} icon={PoopIcon} label="Caca" />
                   </div>
                 </li>
               ))}
@@ -90,15 +92,23 @@ function Stat({ value, label }: { value: number | string; label: string }) {
 }
 
 /** Etiqueta de pipí/caca: resaltada si ocurrió, tachada si no. */
-function Badge({ active, icon, label }: { active: boolean; icon: string; label: string }) {
+function Badge({
+  active,
+  icon: Icon,
+  label,
+}: {
+  active: boolean
+  icon: LucideIcon | ComponentType<SVGProps<SVGSVGElement>>
+  label: string
+}) {
   return (
     <span
       title={`${label}: ${active ? 'sí' : 'no'}`}
-      className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
         active ? 'bg-soft-blue text-brown' : 'bg-white/60 text-brown/75 line-through'
       }`}
     >
-      <span aria-hidden="true">{icon}</span> {label}
+      <Icon className="size-3.5" aria-hidden="true" /> {label}
     </span>
   )
 }

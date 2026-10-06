@@ -1,3 +1,4 @@
+import { TriangleAlert } from 'lucide-react'
 import { cloneElement, useId, type ReactElement, type ReactNode } from 'react'
 import { ghostButton, primaryButtonSm } from '../../constants/styles'
 
@@ -47,7 +48,7 @@ export function Field({ label, hint, error, className = '', children }: FieldPro
 export function FieldError({ id, children }: { id?: string; children: ReactNode }) {
   return (
     <p id={id} className="mt-1 flex items-center gap-1 text-xs font-medium text-brown">
-      <span aria-hidden="true">⚠️</span>
+      <TriangleAlert className="size-3.5 shrink-0" aria-hidden="true" />
       {children}
     </p>
   )

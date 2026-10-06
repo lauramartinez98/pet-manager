@@ -1,6 +1,20 @@
+import {
+  Bone,
+  Cat,
+  Dog,
+  Gift,
+  Package,
+  PawPrint,
+  Pill,
+  Scissors,
+  ShieldCheck,
+  Stethoscope,
+  ToyBrick,
+  type LucideIcon,
+} from 'lucide-react'
 import type { ExpenseCategory, Species } from '../types/api-types'
 
-// Textos en pantalla para los enums del contrato (api-docs/openapi.yaml)
+// Textos e iconos en pantalla para los enums del contrato (api-docs/openapi.yaml)
 
 export const SPECIES_LABELS: Record<Species, string> = {
   PERRO: 'Perro',
@@ -8,13 +22,19 @@ export const SPECIES_LABELS: Record<Species, string> = {
   OTRO: 'Otro',
 }
 
-export const EXPENSE_CATEGORY_LABELS: Record<ExpenseCategory, { label: string; icon: string }> = {
-  FOOD: { label: 'Comida', icon: '🦴' },
-  VET: { label: 'Veterinario', icon: '🩺' },
-  MEDICATION: { label: 'Medicación', icon: '💊' },
-  GROOMING: { label: 'Peluquería', icon: '✂️' },
-  TOYS: { label: 'Juguetes', icon: '🧸' },
-  ACCESSORIES: { label: 'Accesorios', icon: '🎀' },
-  INSURANCE: { label: 'Seguro', icon: '🛡️' },
-  OTHER: { label: 'Otros', icon: '📦' },
+export const SPECIES_ICONS: Record<Species, LucideIcon> = {
+  PERRO: Dog,
+  GATO: Cat,
+  OTRO: PawPrint,
+}
+
+export const EXPENSE_CATEGORY_LABELS: Record<ExpenseCategory, { label: string; icon: LucideIcon }> = {
+  FOOD: { label: 'Comida', icon: Bone },
+  VET: { label: 'Veterinario', icon: Stethoscope },
+  MEDICATION: { label: 'Medicación', icon: Pill },
+  GROOMING: { label: 'Peluquería', icon: Scissors },
+  TOYS: { label: 'Juguetes', icon: ToyBrick },
+  ACCESSORIES: { label: 'Accesorios', icon: Gift },
+  INSURANCE: { label: 'Seguro', icon: ShieldCheck },
+  OTHER: { label: 'Otros', icon: Package },
 }

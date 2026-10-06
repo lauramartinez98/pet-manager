@@ -23,7 +23,7 @@ function totalsByCategory(expenses: ExpenseResponse[]): CategoryTotal[] {
   return [...sums.entries()]
     .map(([category, total]) => ({
       category,
-      label: `${EXPENSE_CATEGORY_LABELS[category].icon} ${EXPENSE_CATEGORY_LABELS[category].label}`,
+      label: EXPENSE_CATEGORY_LABELS[category].label,
       total,
       share: grand > 0 ? total / grand : 0,
     }))

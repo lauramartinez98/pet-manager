@@ -1,3 +1,4 @@
+import { PartyPopper, TriangleAlert, Weight } from 'lucide-react'
 import { useLocation, useParams } from 'react-router-dom'
 import { getPet } from '../api/api-client'
 import { SPECIES_LABELS } from '../constants/labels'
@@ -28,8 +29,9 @@ export default function PetDashboard() {
   return (
     <div className="space-y-8">
       {photoUploadFailed && !pet.photoUrl && (
-        <p role="status" className="rounded-xl bg-white/70 px-4 py-3 text-sm text-brown">
-          ⚠️ {pet.name} se ha creado, pero no se pudo subir la foto. Pulsa sobre el círculo para intentarlo de nuevo.
+        <p role="status" className="flex items-center gap-2 rounded-xl bg-white/70 px-4 py-3 text-sm text-brown">
+          <TriangleAlert className="size-4 shrink-0" aria-hidden="true" />
+          {pet.name} se ha creado, pero no se pudo subir la foto. Pulsa sobre el círculo para intentarlo de nuevo.
         </p>
       )}
 
@@ -56,8 +58,9 @@ export default function PetDashboard() {
                 </span>
               )}
               {pet.weightKg != null && (
-                <span className="rounded-full bg-white/70 px-3 py-1 text-sm font-semibold text-brown">
-                  ⚖️ {pet.weightKg} kg
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1 text-sm font-semibold text-brown">
+                  <Weight className="size-4" aria-hidden="true" />
+                  {pet.weightKg} kg
                 </span>
               )}
             </div>
@@ -87,7 +90,10 @@ export default function PetDashboard() {
                       ))}
                     </ul>
                   ) : (
-                    <span className="text-brown">Ninguna conocida 🎉</span>
+                    <span className="inline-flex items-center gap-1.5 text-brown">
+                      Ninguna conocida
+                      <PartyPopper className="size-4" aria-hidden="true" />
+                    </span>
                   )}
                 </dd>
               </div>

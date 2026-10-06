@@ -25,13 +25,21 @@ Monorepo: `backend/` (Spring Boot 4, Java 17), `frontend/` (React 19 + Vite + Ty
 - **Escribir o ajustar tests sí forma parte de la tarea** cuando el cambio lo requiere (p. ej. un endpoint nuevo en `ApiContractTest`); lo que no se hace es ejecutarlos.
 
 ### Schema-Driven Development
-Antes de tocar endpoints, DTOs, controladores, servicios o llamadas HTTP del frontend, aplica la skill `sdd-validator` (`.skills/sdd.validator/SKILL.md`). `api-docs/openapi.yaml` es la fuente de verdad.
+Antes de tocar endpoints, DTOs, controladores, servicios o llamadas HTTP del frontend, aplica la skill `sdd-validator` (`.claude/skills/sdd-validator/SKILL.md`). `api-docs/openapi.yaml` es la fuente de verdad.
 
 ### Estilo visual
-Para cualquier cambio de UI, aplica la paleta, la tipografía y los componentes de `.skills/color.palette/SKILL.md`.
+Para cualquier cambio de UI, aplica la skill `ui-design` (`.claude/skills/ui-design/SKILL.md`): paleta, tipografía, iconos lucide (sin emojis), logo y componentes compartidos.
+
+### Publicaciones en Git/GitHub
+Cuando la usuaria pida subir o publicar cambios en Git/GitHub, aplica la skill `git-workflow` (`.claude/skills/git-workflow/SKILL.md`) antes de preparar la publicación.
+
+### Skills y agentes
+- Skills en `.claude/skills/<nombre>/SKILL.md`: `sdd-validator`, `ui-design`, `git-workflow` y `tests` (esta solo a mano, con `/tests`).
+- Subagentes en `.claude/agents/<nombre>.md`: `frontend-expert` (UI) y `sdd-fullstack-expert` (funcionalidades que cruzan back y front).
 
 ## Comandos
 ```bash
+# VS Code: Run and Debug → "Pet Manager: back + front" (.vscode/launch.json) arranca los dos
 cd backend && ./mvnw spring-boot:run                       # API en http://localhost:8080/api/v1
 cd backend && ./mvnw test -Dtest='ApiContractTest,PetPhotoServiceTest'
 cd frontend && npm run dev                                  # http://localhost:5173

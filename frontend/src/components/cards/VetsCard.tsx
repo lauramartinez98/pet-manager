@@ -1,3 +1,4 @@
+import { Stethoscope } from 'lucide-react'
 import { useState } from 'react'
 import { createPetVetAppointment, getPetVetAppointments } from '../../api/api-client'
 import { useApi } from '../../hooks/useApi'
@@ -36,7 +37,7 @@ export default function VetsCard({ petId }: VetsCardProps) {
   return (
     <Card
       title="Citas veterinarias"
-      icon="🩺"
+      icon={Stethoscope}
       action={!showForm && <AddButton label="Añadir cita" onClick={() => setShowForm(true)} />}
     >
       {showForm && <VetAppointmentForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />}

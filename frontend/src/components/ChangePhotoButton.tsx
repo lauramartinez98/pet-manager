@@ -1,3 +1,4 @@
+import { Camera, LoaderCircle } from 'lucide-react'
 import { useState, type ChangeEvent } from 'react'
 import { uploadPetPhoto } from '../api/api-client'
 import type { PetResponse } from '../types/api-types'
@@ -50,9 +51,11 @@ export default function ChangePhotoButton({ pet, onUploaded }: ChangePhotoButton
             uploading ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 group-has-focus-visible:opacity-100'
           }`}
         >
-          <span aria-hidden="true" className="text-2xl">
-            {uploading ? '⏳' : '📷'}
-          </span>
+          {uploading ? (
+            <LoaderCircle className="mb-1 size-7 animate-spin" aria-hidden="true" />
+          ) : (
+            <Camera className="mb-1 size-7" aria-hidden="true" />
+          )}
           {uploading ? 'Subiendo…' : 'Cambiar foto'}
         </span>
         <input

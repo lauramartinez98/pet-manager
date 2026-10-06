@@ -1,9 +1,11 @@
+import { Droplet } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { inputClass } from '../../constants/styles'
 import type { WalkRequest } from '../../types/api-types'
 import { errorMessage } from '../../utils/errors'
 import { nowIso } from '../../utils/format'
 import { numberRules } from '../../utils/validation'
+import PoopIcon from '../icons/PoopIcon'
 import { ChoiceButton, Field, FormActions } from './FormControls'
 
 interface WalkFormValues {
@@ -73,10 +75,10 @@ export default function WalkForm({ onSubmit, onCancel }: WalkFormProps) {
 
       <div className="flex gap-2">
         <ChoiceButton input={<input type="checkbox" {...register('didPee')} />}>
-          <span aria-hidden="true">💧</span> Pipí
+          <Droplet className="size-4" aria-hidden="true" /> Pipí
         </ChoiceButton>
         <ChoiceButton input={<input type="checkbox" {...register('didPoop')} />}>
-          <span aria-hidden="true">💩</span> Caca
+          <PoopIcon className="size-4" /> Caca
         </ChoiceButton>
       </div>
 

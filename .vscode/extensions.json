@@ -1,0 +1,4 @@
+{
+  // Necesaria para la configuración "Backend (Spring Boot)" de launch.json
+  "recommendations": ["vscjava.vscode-java-pack"]
+}

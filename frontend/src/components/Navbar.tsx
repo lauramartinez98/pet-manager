@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { useAuth } from '../auth/auth-context'
 import type { PetResponse } from '../types/api-types'
 import { ErrorState, LoadingState } from './Feedback'
+import AppLogo from './AppLogo'
 import PetAvatar from './PetAvatar'
 import { liftSm, primaryButton, secondaryButton } from '../constants/styles'
 
@@ -21,7 +22,10 @@ export default function Navbar({ pets, loading, error, onRetry, onNewPet }: Navb
   return (
     <aside className="fixed inset-y-0 left-0 flex h-screen w-64 flex-col bg-soft-blue px-4 py-6">
       <div className="px-2">
-        <p className="font-display text-sm font-extrabold tracking-tight text-brown/90">🐾 Pet Manager</p>
+        <p className="flex items-center gap-2 font-display text-sm font-extrabold tracking-tight text-brown/90">
+          <AppLogo className="size-8" />
+          Pet Manager
+        </p>
         <h1 className="mt-1 truncate text-xl font-bold text-brown" title={user?.fullName}>
           Bienvenido{firstName ? `, ${firstName}` : ' Dueño'}
         </h1>

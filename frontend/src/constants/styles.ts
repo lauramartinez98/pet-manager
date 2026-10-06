@@ -1,5 +1,5 @@
 /*
- * Clases compartidas (.skills/color.palette/SKILL.md): bordes amplios, sombras grandes y difuminadas
+ * Clases compartidas (.claude/skills/ui-design/SKILL.md): bordes amplios, sombras grandes y difuminadas
  * y micro-interacciones. El desplazamiento al pasar el ratón solo se aplica si el usuario no ha pedido
  * reducir el movimiento (motion-safe) y nunca en botones deshabilitados.
  */

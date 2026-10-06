@@ -1,3 +1,4 @@
+import { Euro } from 'lucide-react'
 import { lazy, Suspense, useState } from 'react'
 import { createPetExpense, getPetExpenses } from '../../api/api-client'
 import { EXPENSE_CATEGORY_LABELS } from '../../constants/labels'
@@ -37,7 +38,7 @@ export default function ExpensesCard({ petId }: ExpensesCardProps) {
   return (
     <Card
       title="Gastos"
-      icon="💶"
+      icon={Euro}
       action={!showForm && <AddButton label="Añadir gasto" onClick={() => setShowForm(true)} />}
     >
       {showForm && <ExpenseForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />}
@@ -71,7 +72,7 @@ export default function ExpensesCard({ petId }: ExpensesCardProps) {
                     className="flex size-9 shrink-0 items-center justify-center rounded-full bg-soft-blue"
                     aria-hidden="true"
                   >
-                    {category.icon}
+                    <category.icon className="size-4.5 text-brown" />
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-semibold text-brown">

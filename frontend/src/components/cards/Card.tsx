@@ -1,19 +1,20 @@
+import type { LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 interface CardProps {
   title: string
-  icon: string
+  icon: LucideIcon
   action?: ReactNode
   children: ReactNode
 }
 
 /** Contenedor común de las tarjetas del dashboard (ui-guidelines: Butter Yellow, bordes suaves y sombra ligera) */
-export default function Card({ title, icon, action, children }: CardProps) {
+export default function Card({ title, icon: Icon, action, children }: CardProps) {
   return (
     <section className="flex flex-col rounded-3xl bg-butter-yellow p-6 shadow-lg shadow-brown/5">
       <header className="mb-4 flex items-center justify-between gap-3">
         <h3 className="flex items-center gap-2 text-lg text-brown">
-          <span aria-hidden="true">{icon}</span>
+          <Icon className="size-5" aria-hidden="true" />
           {title}
         </h3>
         {action}

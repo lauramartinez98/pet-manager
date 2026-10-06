@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import { useLayoutContext } from '../hooks/useLayoutContext'
+import AppLogo from './AppLogo'
 import { LoadingState } from './Feedback'
 
 /** Ruta "/": abre la primera mascota del usuario, o invita a crear una si no tiene */
@@ -16,7 +17,7 @@ export default function HomeRedirect() {
 
   return (
     <section className="mx-auto mt-16 max-w-md rounded-3xl bg-butter-yellow p-10 text-center shadow-lg shadow-brown/5">
-      <p className="text-5xl" aria-hidden="true">🐾</p>
+      <AppLogo className="mx-auto size-24" />
       <h2 className="mt-4 text-2xl text-brown">Aún no hay ningún miembro</h2>
       <p className="mt-2 text-brown/75">Usa «+ Nuevo miembro» para añadir tu primera mascota.</p>
     </section>

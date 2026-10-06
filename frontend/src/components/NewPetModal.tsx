@@ -1,15 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { createPet, uploadPetPhoto } from '../api/api-client'
-import { SPECIES_LABELS } from '../constants/labels'
+import { SPECIES_ICONS, SPECIES_LABELS } from '../constants/labels'
 import { inputClass } from '../constants/styles'
 import type { Species } from '../types/api-types'
 import { errorMessage } from '../utils/errors'
 import { numberRules, optional, optionalNumber, photoRules, textRules } from '../utils/validation'
 import { ChoiceButton, Field, FormActions } from './forms/FormControls'
+import AppLogo from './AppLogo'
 import PhotoPicker from './forms/PhotoPicker'
-
-const SPECIES_ICONS: Record<Species, string> = { PERRO: '🐶', GATO: '🐱', OTRO: '🐾' }
 
 interface NewPetFormValues {
   name: string
@@ -92,8 +91,9 @@ export default function NewPetModal({ onClose, onCreated }: NewPetModalProps) {
     >
       <form onSubmit={submit} noValidate className="space-y-4 p-8">
         <header>
-          <h2 id="new-pet-title" className="text-2xl">
-            🐾 Nuevo miembro
+          <h2 id="new-pet-title" className="flex items-center gap-2 text-2xl">
+            <AppLogo className="size-9" />
+            Nuevo miembro
           </h2>
           <p className="text-sm text-brown/75">Cuéntanos sobre tu mascota.</p>
         </header>
@@ -113,11 +113,14 @@ export default function NewPetModal({ onClose, onCreated }: NewPetModalProps) {
         <fieldset>
           <legend className="text-sm font-medium">Tipo de animal *</legend>
           <div className="mt-1 flex gap-2">
-            {(Object.keys(SPECIES_LABELS) as Species[]).map((s) => (
-              <ChoiceButton key={s} input={<input type="radio" value={s} {...register('species')} />}>
-                <span aria-hidden="true">{SPECIES_ICONS[s]}</span> {SPECIES_LABELS[s]}
-              </ChoiceButton>
-            ))}
+            {(Object.keys(SPECIES_LABELS) as Species[]).map((s) => {
+              const Icon = SPECIES_ICONS[s]
+              return (
+                <ChoiceButton key={s} input={<input type="radio" value={s} {...register('species')} />}>
+                  <Icon className="size-4" aria-hidden="true" /> {SPECIES_LABELS[s]}
+                </ChoiceButton>
+              )
+            })}
           </div>
         </fieldset>
 

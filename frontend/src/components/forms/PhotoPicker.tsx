@@ -1,3 +1,4 @@
+import { Camera } from 'lucide-react'
 import { useEffect, useMemo, type InputHTMLAttributes } from 'react'
 import { PHOTO_ACCEPT } from '../../utils/validation'
 import { FieldError } from './FormControls'
@@ -28,7 +29,7 @@ export default function PhotoPicker({ file, error, inputProps }: PhotoPickerProp
           {preview ? (
             <img src={preview} alt="Vista previa de la foto" className="size-full object-cover" />
           ) : (
-            <span aria-hidden="true">📷</span>
+            <Camera className="size-8 text-brown/70" aria-hidden="true" />
           )}
         </div>
         <label className={`cursor-pointer rounded-xl border border-brown/30 bg-white/70 px-3 py-2 text-sm font-medium text-brown ${liftSm} hover:bg-white has-focus-visible:ring-2 has-focus-visible:ring-soft-blue`}>

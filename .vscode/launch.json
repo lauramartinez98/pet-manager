@@ -1,0 +1,30 @@
+{
+  // Ejecutar y depurar (F5 / panel "Run and Debug"): elige "Pet Manager: back + front" para arrancar los dos
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend (Spring Boot)",
+      "type": "java",
+      "request": "launch",
+      "mainClass": "com.petmanager.backend.BackendApplication",
+      "projectName": "backend",
+      // Desde backend/ para que Spring cargue backend/.env
+      "cwd": "${workspaceFolder}/backend",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Frontend (Vite)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}/frontend"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Pet Manager: back + front",
+      "configurations": ["Backend (Spring Boot)", "Frontend (Vite)"],
+      "stopAll": true
+    }
+  ]
+}

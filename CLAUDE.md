@@ -1,6 +1,6 @@
 # Pet Manager
 
-Monorepo: `backend/` (Spring Boot 4, Java 17), `frontend/` (React 19 + Vite + TypeScript + Tailwind v4) y `api-docs/openapi.yaml` (contrato de la API).
+Monorepo: `backend/` (Spring Boot 4, Java 25), `frontend/` (React 19 + Vite + TypeScript + Tailwind v4) y `api-docs/openapi.yaml` (contrato de la API).
 
 ## Reglas del proyecto
 

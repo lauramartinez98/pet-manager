@@ -65,7 +65,7 @@ public class PetPhotoService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No se ha enviado ninguna imagen");
         }
         if (file.getSize() > PhotoStorageService.MAX_BYTES) {
-            throw new ResponseStatusException(HttpStatus.PAYLOAD_TOO_LARGE, "La imagen supera los 5 MB");
+            throw new ResponseStatusException(HttpStatus.CONTENT_TOO_LARGE, "La imagen supera los 5 MB");
         }
         try {
             return file.getBytes();
